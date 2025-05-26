@@ -1,4 +1,21 @@
 <!DOCTYPE html>
+<!--
+
+██╗    ██╗   ██╗
+██║    ██║   ██║
+██║    ██║   ██║
+██║    ╚██╗ ██╔╝
+███████╗╚████╔╝ 
+╚══════╝ ╚═══╝  
+
+By LupineVault.com
+All images and code are owned by LupineVault (lupinevault.com) and associated developers.
+© 2025 LupineVault and all associated developers.
+
+UV Static 2.0
+-
+Developed by technonyte0
+-->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -56,10 +73,11 @@
       padding: 0 16px;
       z-index: 100;
     }
-    header .controls {
+    .controls {
       display: flex;
       align-items: center;
       gap: 12px;
+      width: 100%;
     }
     .btn {
       background: transparent;
@@ -73,9 +91,9 @@
       transition: background var(--transition), color var(--transition);
     }
     .btn:hover { background: var(--hover); }
+    #url-form { flex: 1; }
     #url-input {
-      flex: 1;
-      margin: 0 12px;
+      width: 100%;
       padding: 8px 12px;
       background: transparent;
       border: 1px solid var(--accent);
@@ -84,7 +102,7 @@
       outline: none;
       transition: border var(--transition);
     }
-    #url-input:focus { border-color: var(--hover); }
+    #url-input::placeholder { color: #ccc; }
     #new-tab {
       border-color: var(--accent);
     }
@@ -110,9 +128,7 @@
       display: none;
       z-index: 200;
     }
-    @keyframes spin {
-      to { transform: translate(-50%, -50%) rotate(360deg); }
-    }
+    @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
     #browser-frame {
       width: 100%;
       height: 100%;
@@ -127,10 +143,17 @@
       const input = document.getElementById('url-input');
       const frame = document.getElementById('browser-frame');
       const loader = document.getElementById('loader');
+      const pageBack = document.getElementById('page-back');
+      const pageForward = document.getElementById('page-forward');
+      const pageRefresh = document.getElementById('page-refresh');
+      const homeBtn = document.getElementById('home-btn');
 
       urlForm.addEventListener('submit', e => {
         e.preventDefault();
-        const url = input.value.startsWith('http') ? input.value : 'https://' + input.value;
+        let url = input.value.trim();
+        if (!/^https?:\/\//i.test(url)) {
+          url = 'https://' + url;
+        }
         loadURL(url);
       });
 
@@ -145,20 +168,30 @@
         frame.style.visibility = 'visible';
       });
 
-      // Initial blank page
+      // Navigation buttons
+      pageBack.addEventListener('click', () => frame.contentWindow.history.back());
+      pageForward.addEventListener('click', () => frame.contentWindow.history.forward());
+      pageRefresh.addEventListener('click', () => frame.contentWindow.location.reload());
+      homeBtn.addEventListener('click', () => loadURL('about:blank'));
+
+      // Initial load
       loadURL('about:blank');
     });
   </script>
 </head>
 <body>
+  <div id="small-screen-overlay">UV Static 2.0 doesn't support smaller screens. Please use UV Static 2.0 on a larger screen.</div>
+
   <header>
     <div class="controls">
-      <div class="btn" onclick="history.back()"><ion-icon name="arrow-back-outline"></ion-icon></div>
-      <div class="btn" onclick="history.forward()"><ion-icon name="arrow-forward-outline"></ion-icon></div>
-      <form id="url-form" style="display:flex; flex:1;">
-        <input type="text" id="url-input" placeholder="Enter URL or search term" autocomplete="off" spellcheck="false" />
+      <div id="home-btn" class="btn"><ion-icon name="home-outline"></ion-icon></div>
+      <div id="page-back" class="btn"><ion-icon name="arrow-back-outline"></ion-icon></div>
+      <div id="page-forward" class="btn"><ion-icon name="arrow-forward-outline"></ion-icon></div>
+      <div id="page-refresh" class="btn"><ion-icon name="refresh-outline"></ion-icon></div>
+      <form id="url-form">
+        <input id="url-input" type="text" placeholder="Search or enter URL" autocomplete="off" autocorrect="off" spellcheck="false" />
       </form>
-      <div id="new-tab" class="btn" onclick="location.reload()"><ion-icon name="add-outline"></ion-icon></div>
+      <div id="new-tab" class="btn"><ion-icon name="add-outline"></ion-icon></div>
     </div>
   </header>
 
