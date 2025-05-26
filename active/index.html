@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!--
+  
 
 ██╗    ██╗   ██╗
 ██║    ██║   ██║
@@ -7,6 +8,8 @@
 ██║    ╚██╗ ██╔╝
 ███████╗╚████╔╝ 
 ╚══════╝ ╚═══╝  
+                
+                        
 
 By LupineVault.com
 All images and code are owned by LupineVault (lupinevault.com) and associated developers.
@@ -17,187 +20,160 @@ UV Static 2.0
 Developed by technonyte0
 -->
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UV Static v2 - Reimagined</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UV Static v2</title>
+    <script src="check.js" defer></script>
+    <script defer src="scripts/lstimer.js"></script>
 
-  <!-- Outfit Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style/global.css" />
+    <link rel="stylesheet" href="style/browser.css" />
+    
 
-  <!-- Icons -->
-  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
-  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.5.2.nomodule.min.js"
+    ></script>
 
-  <!-- Core Scripts -->
-  <script defer src="check.js"></script>
-  <script defer src="scripts/lstimer.js"></script>
-  <script defer src="uv/uv.bundle.js"></script>
-  <script defer src="uv/uv.config.js"></script>
-  <script defer src="scripts/tabs.mjs" type="module"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
 
-  <style>
-    :root {
-      --bg: #000;
-      --fg: #fff;
-      --accent: #fff;
-      --hover: #333;
-      --radius: 8px;
-      --transition: 0.2s;
-      --header-height: 56px;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-    }
-    body {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    header {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: var(--header-height);
-      background: var(--bg);
-      border-bottom: 1px solid var(--fg);
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      z-index: 100;
-    }
-    .controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-    }
-    .btn {
-      background: transparent;
-      border: 1px solid var(--accent);
-      border-radius: var(--radius);
-      padding: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background var(--transition), color var(--transition);
-    }
-    .btn:hover { background: var(--hover); }
-    #url-form { flex: 1; }
-    #url-input {
-      width: 100%;
-      padding: 8px 12px;
-      background: transparent;
-      border: 1px solid var(--accent);
-      border-radius: var(--radius);
-      color: var(--fg);
-      outline: none;
-      transition: border var(--transition);
-    }
-    #url-input::placeholder { color: #ccc; }
-    #new-tab {
-      border-color: var(--accent);
-    }
-    #new-tab:hover {
-      border-color: var(--fg);
-    }
-    #main-container {
-      margin-top: var(--header-height);
-      flex: 1;
-      position: relative;
-      width: 100%;
-    }
-    #loader {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      border: 4px solid var(--hover);
-      border-top: 4px solid var(--fg);
-      border-radius: 50%;
-      width: 48px;
-      height: 48px;
-      animation: spin 1s linear infinite;
-      display: none;
-      z-index: 200;
-    }
-    @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
-    #browser-frame {
-      width: 100%;
-      height: 100%;
-      border: none;
-      visibility: hidden;
-    }
-  </style>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const urlForm = document.getElementById('url-form');
-      const input = document.getElementById('url-input');
-      const frame = document.getElementById('browser-frame');
-      const loader = document.getElementById('loader');
-      const pageBack = document.getElementById('page-back');
-      const pageForward = document.getElementById('page-forward');
-      const pageRefresh = document.getElementById('page-refresh');
-      const homeBtn = document.getElementById('home-btn');
-
-      urlForm.addEventListener('submit', e => {
-        e.preventDefault();
-        let url = input.value.trim();
-        if (!/^https?:\/\//i.test(url)) {
-          url = 'https://' + url;
+    <script src="uv/uv.bundle.js" defer></script>
+    <script src="uv/uv.config.js" defer></script>
+    <script src="scripts/tabs.mjs" type="module" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/gh/tf7software/Font-Awesome-pro-cdn@main/js/all.js"></script>
+    <style>
+      body {padding: 0;margin: 0;}
+    </style>
+    <script>
+      window.onload = function () {
+        if (!localStorage.getItem("discordAlertShown")) {
+          alert("Join our discord .gg/redlv for bonuses, updates, links, and more!");
+          localStorage.setItem("discordAlertShown", "true");
         }
-        loadURL(url);
-      });
+      };
+    </script>
+  </head>
 
-      function loadURL(src) {
-        loader.style.display = 'block';
-        frame.style.visibility = 'hidden';
-        frame.src = src;
-      }
-
-      frame.addEventListener('load', () => {
-        loader.style.display = 'none';
-        frame.style.visibility = 'visible';
-      });
-
-      // Navigation buttons
-      pageBack.addEventListener('click', () => frame.contentWindow.history.back());
-      pageForward.addEventListener('click', () => frame.contentWindow.history.forward());
-      pageRefresh.addEventListener('click', () => frame.contentWindow.location.reload());
-      homeBtn.addEventListener('click', () => loadURL('about:blank'));
-
-      // Initial load
-      loadURL('about:blank');
-    });
-  </script>
-</head>
-<body>
-  <div id="small-screen-overlay">UV Static 2.0 doesn't support smaller screens. Please use UV Static 2.0 on a larger screen.</div>
-
-  <header>
-    <div class="controls">
-      <div id="home-btn" class="btn"><ion-icon name="home-outline"></ion-icon></div>
-      <div id="page-back" class="btn"><ion-icon name="arrow-back-outline"></ion-icon></div>
-      <div id="page-forward" class="btn"><ion-icon name="arrow-forward-outline"></ion-icon></div>
-      <div id="page-refresh" class="btn"><ion-icon name="refresh-outline"></ion-icon></div>
-      <form id="url-form">
-        <input id="url-input" type="text" placeholder="Search or enter URL" autocomplete="off" autocorrect="off" spellcheck="false" />
-      </form>
-      <div id="new-tab" class="btn"><ion-icon name="add-outline"></ion-icon></div>
+  <body>
+    <div id="small-screen-overlay">
+      UV Static 2.0 doesn't support smaller screens. Please use UV Static 2.0 on a larger screen.
     </div>
-  </header>
 
-  <div id="main-container">
-    <div id="loader"></div>
-    <iframe id="browser-frame" sandbox="allow-scripts allow-same-origin"></iframe>
-  </div>
-</body>
+
+  <div id="nav"></div>
+  <div id="main-content"></div>
+
+
+    <div id="tab-view" class=""></div>
+    <div class="sidebar-container">
+      <header>
+        <div class="page-data">
+          <span id="controls">
+            <button onclick="window.location.href='/'">
+              <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+              <svg
+   width="38.454208mm"
+   height="24.726074mm"
+   viewBox="0 0 38.454208 24.726074"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     transform="translate(-145.0951,-136.5279)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32.9681px;font-family:'Dallas Print Shop';-inkscape-font-specification:'Dallas Print Shop';text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#5a32e3;fill-opacity:1;stroke-width:2.74734"
+       x="142.33917"
+       y="161.25397"
+       id="text2"><tspan
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Krungthep;-inkscape-font-specification:Krungthep;fill:#5a32e3;fill-opacity:1;stroke-width:2.74734"
+         x="142.33917"
+         y="161.25397">v2</tspan></text>
+  </g>
+</svg>
+
+           
+
+              <p class="tooltip">Home</p>
+            </button>
+            <!-- <p class="logo-name">RED Browse</p> -->
+            <span>
+              <button id="page-back">
+                <ion-icon
+                  name="arrow-back-outline"
+                  class="icon hover-focus1"
+                ></ion-icon>
+                <p class="tooltip">Back</p>
+              </button>
+              <button id="page-forward">
+                <ion-icon
+                  name="arrow-forward-outline"
+                  class="icon hover-focus1"
+                ></ion-icon>
+                <p class="tooltip">Forward</p>
+              </button>
+              <button id="page-refresh">
+                <ion-icon
+                  name="refresh-outline"
+                  class="icon hover-focus1"
+                ></ion-icon>
+                <p class="tooltip">Refresh</p>
+              </button>
+              <button id="options-btn">
+                <ion-icon
+                  name="menu-outline"
+                  class="icon hover-focus1"
+                ></ion-icon>
+                <p class="tooltip">Menu</p>
+              </button>
+            </span>
+          </span>
+          <form id="url-form">
+            <input
+              type="text"
+              id="url-input"
+              onfocus="this.setSelectionRange(0, this.value.length)"
+              class="hover-focus2"
+              placeholder="Search or enter URL"
+              autocomplete="off"
+              autocorrect="off"
+              spellcheck="false"
+            />
+          </form>
+          <button id="new-tab" class="hover-focus2">
+            <ion-icon name="add-outline" class="icon"></ion-icon>
+            <span>New Tab</span>
+          </button>
+        </div>
+        <div id="tab-list"></div>
+      </header>
+    </div>
+
+    <div id="menu-overlay">
+      <div class="option" id="devtools-option">Developer Tools</div>
+      <div class="option" id="abc-option">Open in about:blank</div>
+      <div class="option" id="git-option">GitHub</div>
+    </div>
+    <script>
+      const optionsBtn = document.getElementById("options-btn");
+      const overlay = document.getElementById("menu-overlay");
+      optionsBtn.addEventListener("click", () => {
+        overlay.classList.toggle("active");
+      });
+    </script>
+  </body>
 </html>
