@@ -5,115 +5,148 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>UV Static v2</title>
 
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&display=swap" rel="stylesheet" />
   <script defer src="https://cdn.jsdelivr.net/gh/tf7software/Font-Awesome-pro-cdn@main/js/all.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-  <!-- JavaScript -->
+  <!-- Scripts -->
   <script src="check.js" defer></script>
-  <script defer src="scripts/lstimer.js"></script>
   <script src="uv/uv.bundle.js" defer></script>
   <script src="uv/uv.config.js" defer></script>
+  <script src="scripts/lstimer.js" defer></script>
   <script src="scripts/tabs.mjs" type="module" defer></script>
   <script src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.5.2.nomodule.min.js"></script>
 
-  <!-- Inline CSS -->
   <style>
     * {
       box-sizing: border-box;
     }
-    body {
+
+    html, body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #121212;
+      padding: 0;
+      height: 100%;
+      background-color: #000;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
       color: #fff;
     }
+
     header {
-      background-color: #1f1f1f;
+      background-color: #000;
       padding: 10px 16px;
       display: flex;
       flex-direction: column;
-      border-bottom: 1px solid #2e2e2e;
+      border-bottom: 1px solid #fff;
     }
+
     .page-data {
       display: flex;
       align-items: center;
       gap: 12px;
       flex-wrap: wrap;
     }
+
     button {
-      background: #2a2a2a;
-      border: none;
+      background: #000;
+      border: 1px solid #fff;
       color: #fff;
       padding: 6px 10px;
       margin: 2px;
-      border-radius: 8px;
+      border-radius: 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 4px;
-      transition: background 0.2s;
+      transition: background 0.2s, color 0.2s;
     }
+
     button:hover {
-      background: #3a3a3a;
+      background: #fff;
+      color: #000;
     }
+
     .tooltip {
       font-size: 10px;
-      opacity: 0.7;
+      opacity: 0.6;
     }
+
     #url-input {
       flex-grow: 1;
-      background: #2e2e2e;
+      background: #000;
+    border-radius: 12px;
       color: white;
-      border: 1px solid #3a3a3a;
-      border-radius: 6px;
+      border: 1px solid white;
+      1us: 6px;
       padding: 8px;
       width: 100%;
     }
+
+    #url-input::placeholder {
+      color: #ccc;
+    }
+
     #new-tab {
-      background: #5a32e3;
-      color: white;
+      background: #fff;
+      color: #000;
+      border: 1px solid #fff;
     }
+
     #new-tab:hover {
-      background: #6b3aff;
+      background: transparent;
+      color: #fff;
     }
+
     #tab-list {
       margin-top: 8px;
     }
+
     .sidebar-container {
-      background: #1a1a1a;
-      border-right: 1px solid #2a2a2a;
+      background: #000;
+      border-right: 1px solid #fff;
     }
+
     #menu-overlay {
       position: absolute;
       top: 60px;
       right: 20px;
-      background: #1e1e1e;
-      border: 1px solid #333;
-      border-radius: 8px;
+      background: #000;
+      border: 1px solid #fff;
+      border-radius: 12px;
       display: none;
       flex-direction: column;
       z-index: 10;
     }
+
     #menu-overlay.active {
       display: flex;
     }
+
     .option {
       padding: 12px 16px;
       cursor: pointer;
+      border-bottom: 1px solid #fff;
     }
+
+    .option:last-child {
+      border-bottom: none;
+    }
+
     .option:hover {
-      background: #2c2c2c;
+      background: #fff;
+      color: #000;
     }
+
     #small-screen-overlay {
       display: none;
       background-color: #000;
-      color: red;
+      color: #fff;
       padding: 16px;
       text-align: center;
     }
+
     @media (max-width: 768px) {
       #small-screen-overlay {
         display: block;
@@ -122,15 +155,29 @@
         display: none;
       }
     }
+
+    #main-content {
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    #browser-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
   </style>
 
   <script>
     window.onload = function () {
+      // Discord alert
       if (!localStorage.getItem("discordAlertShown")) {
         alert("Join our discord .gg/redlv for bonuses, updates, links, and more!");
         localStorage.setItem("discordAlertShown", "true");
       }
 
+      // Menu toggle
       const optionsBtn = document.getElementById("options-btn");
       const overlay = document.getElementById("menu-overlay");
       if (optionsBtn) {
@@ -138,13 +185,24 @@
           overlay.classList.toggle("active");
         });
       }
+
+      resizeIframe();
     };
+
+    window.addEventListener("resize", resizeIframe);
+
+    function resizeIframe() {
+      const header = document.querySelector('header');
+      const iframe = document.getElementById('browser-frame');
+      const headerHeight = header.offsetHeight;
+      iframe.style.height = `calc(100vh - ${headerHeight}px)`;
+    }
   </script>
 </head>
 
 <body>
   <div id="small-screen-overlay">
-    UV Static 2.0 doesn't support smaller screens. Please use UV Static 2.0 on a larger screen.
+    UV Static 2.0 doesn't support smaller screens. Please use it on a larger screen.
   </div>
 
   <div class="sidebar-container">
@@ -182,8 +240,9 @@
     </header>
   </div>
 
-  <div id="main-content"></div>
-  <div id="tab-view"></div>
+  <div id="main-content">
+    <iframe id="browser-frame" src="about:blank"></iframe>
+  </div>
 
   <div id="menu-overlay">
     <div class="option" id="devtools-option">Developer Tools</div>
